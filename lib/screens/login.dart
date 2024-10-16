@@ -4,9 +4,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:show_hide_password/show_hide_password.dart';
 
-import '../widgets/form_buttton.dart';
 import '../widgets/password.dart';
 import '../widgets/username.dart';
+import 'home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -58,12 +58,32 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(
-                        left: 30, right: 30, top: 10, bottom: 30),
-                    child: CommonButton(
-                      formKey: _formKey,
-                      buttonLabel: "Login Now",
-                    )),
+                  padding: const EdgeInsets.only(
+                      left: 30, right: 30, top: 10, bottom: 30),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 58,
+                    child: FilledButton(
+                      onPressed: () {
+                        if (_formKey!.currentState!.validate()) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Processing Data')),
+                          );
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const HomePage()));
+                        }
+                      },
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      child: const Text("Login Now"),
+                    ),
+                  ),
+                ),
                 const Padding(
                   padding:
                       EdgeInsets.only(left: 30, right: 30, top: 10, bottom: 30),

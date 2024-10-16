@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/form_buttton.dart';
+import 'home.dart';
 import 'login.dart';
 
 class Signup extends StatefulWidget {
@@ -14,6 +14,7 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +94,7 @@ class _SignupState extends State<Signup> {
                     padding: const EdgeInsets.only(top: 20),
                     child: TextFormField(
                       validator: (value) {
-                        if(passwordController.text != value) {
+                        if (passwordController.text != value) {
                           return "Please enter same as password";
                         }
                         return null;
@@ -110,9 +111,31 @@ class _SignupState extends State<Signup> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: CommonButton(
-                      formKey: _formKey,
-                      buttonLabel: "Sign Up",
+                    child: SizedBox(
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
+                      height: 58,
+                      child: FilledButton(
+                        onPressed: () {
+                          if (_formKey!.currentState!.validate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Processing Data')),
+                            );
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const HomePage()));
+                          }
+                        },
+                        style: FilledButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        child: const Text("Sign Up"),
+                      ),
                     ),
                   ),
                   Padding(
@@ -123,7 +146,8 @@ class _SignupState extends State<Signup> {
                           const TextSpan(
                             text: "Already have an account? ",
                             style: TextStyle(
-                                color:Colors.black), // Set style for regular text
+                                color: Colors
+                                    .black), // Set style for regular text
                           ),
                           TextSpan(
                             text: "Login",
