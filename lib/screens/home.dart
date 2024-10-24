@@ -4,6 +4,7 @@ import 'package:drctc/screens/trips_screen.dart';
 import 'package:drctc/screens/wallet_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/home_appbar.dart';
 import 'home_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,10 +20,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('DRCTC')),
-        automaticallyImplyLeading: false,
-      ),
+      appBar: (selectedIndex == 0)
+          ? const HomeAppbar()
+          : AppBar(
+              title: const Center(child: Text('DRCTC')),
+              automaticallyImplyLeading: false,
+            ),
       body: [
         HomePageScreen(),
         WalletScreen(),
